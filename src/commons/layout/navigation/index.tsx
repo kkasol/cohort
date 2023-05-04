@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { MouseEvent } from "react";
 const Wrapper = styled.div`
-  width: 100vh;
-  height: 100px;
+  width: 100%;
+  height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -2,8 +2,10 @@ import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import * as S from "./marketWrite.styles";
 import { Modal } from "antd";
+import { v4 as uuidv4 } from "uuid";
 import KakaoMapPage from "../../../../commons/library/kakaomap";
 import WriteInput from "../../../../commons/inputs/writeInput";
+import Uploads01 from "../../../../commons/uploads/01/Uploads01.container";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -18,6 +20,9 @@ interface IMarketWriteUIProps {
   handleSubmit: any;
   onSubmit: any;
   isModalOpen: boolean;
+  useditemAddress: string;
+  fileUrls: string[];
+  onChangeFileUrls: any;
 }
 
 export default function MarketWriteUI(props: IMarketWriteUIProps): JSX.Element {
@@ -61,13 +66,23 @@ export default function MarketWriteUI(props: IMarketWriteUIProps): JSX.Element {
         </S.Row>
         <S.DivideLine />
         <S.Label>브랜드 위치</S.Label>
-        <KakaoMapPage />
+        <KakaoMapPage address={props.useditemAddress} />
         <S.Search type="button" onClick={props.onClickAddressSearch}>
           우편번호 검색
         </S.Search>
         {props.isModalOpen && <Modal title="주소 검색" open={true}></Modal>}
         <S.DivideLine />
         <S.Label>사진 첨부</S.Label>
+        <S.ImageBox>
+          {props.fileUrls.map((el, index) => (
+            <Uploads01
+              key={uuidv4()}
+              index={index}
+              fileUrl={el}
+              onChangeFileUrls={props.onChangeFileUrls}
+            />
+          ))}
+        </S.ImageBox>
         <S.DivideLineBold />
         <S.BtnSection>
           <button type="button">취소</button>

@@ -6,7 +6,7 @@ import LayoutFooter from "./footer";
 interface ILayoutPageProps {
   children: JSX.Element;
 }
-const HIDDEN_LAYOUT = ["/"];
+const HIDDEN_LAYOUT = ["/", "/login", "/join"];
 
 export default function LayoutPage(props: ILayoutPageProps): JSX.Element {
   const router = useRouter();
@@ -14,8 +14,7 @@ export default function LayoutPage(props: ILayoutPageProps): JSX.Element {
   return (
     <>
       {!isHiddenLayout && <LayoutHeader />}
-      {!isHiddenLayout && <LayoutNavigation />}
-
+      <LayoutNavigation />
       {props.children}
       {<LayoutFooter />}
     </>

@@ -49,7 +49,10 @@ export const Search = styled.button`
   color: white;
   border: none;
 `;
-
+export const ImageBox = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+`;
 export const BtnSection = styled.div`
   display: flex;
   flex-direction: row;

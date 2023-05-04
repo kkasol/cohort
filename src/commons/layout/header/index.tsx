@@ -17,6 +17,7 @@ const FETCH_USER_LOGGED_IN = gql`
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
