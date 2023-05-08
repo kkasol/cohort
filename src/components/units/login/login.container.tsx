@@ -42,7 +42,7 @@ export default function Login(): JSX.Element {
       }
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
-      void router.push("/boards");
+      void router.push("/market");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

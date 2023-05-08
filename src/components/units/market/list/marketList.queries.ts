@@ -9,6 +9,7 @@ export const FETCH_USED_ITEMS = gql`
       createdAt
       images
       price
+      pickedCount
     }
   }
 `;

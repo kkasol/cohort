@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
-export const Wrapper = styled.div``;
+export const ContentWrapper = styled.div``;
 
 export const Row = styled.div`
   display: flex;
@@ -16,8 +22,14 @@ export const Column = styled.div`
 
 export const ImageWrapper = styled.div`
   width: 1200px;
-  height: 611px;
-  background-color: #a9a9a9;
+  height: 800px;
+  position: relative;
+`;
+
+export const Images = styled.img`
+  width: 1200px;
+  height: 800px;
+  object-fit: cover;
 `;
 
 export const Remark = styled.div`
@@ -78,4 +90,15 @@ export const PickBtn = styled.button`
   background-color: gray;
   color: white;
   border: none;
+`;
+
+export const CommentWrapper = styled.div``;
+
+export const Title = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 120px;
+  font-size: 40px;
+  font-weight: bold;
 `;

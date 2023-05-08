@@ -8,12 +8,48 @@ export const Wrapper = styled.div`
   margin: 0px 80px;
 `;
 
+export const TopWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #999;
+  margin-top: 100px;
+`;
+
+export const TopTitle = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 24px;
+`;
+
+export const TopBody = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 export const MarketList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 30px;
 `;
+
+export const CreateBtn = styled.button`
+  width: 160px;
+  height: 72px;
+  background-color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const SearchInput = styled.div``;
+
+export const Search = styled.input``;
 
 export const MarketBody = styled.div`
   width: 20%;
@@ -35,13 +71,13 @@ export const MarketBodyImage = styled.img<{ noImage?: boolean }>`
 
 export const MarketBodyPrice = styled.div``;
 
-export const MarketBodyId = styled.div`
+export const MarketBodyName = styled.div`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
 
-export const MarketBodyDate = styled.div`
+export const MarketBodyRemarks = styled.div`
   font-size: 14px;
   color: #9b9b9b;
 `;
