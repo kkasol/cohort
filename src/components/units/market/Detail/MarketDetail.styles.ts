@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
 `;
 
 export const ContentWrapper = styled.div``;
@@ -27,9 +28,23 @@ export const ImageWrapper = styled.div`
 `;
 
 export const Images = styled.img`
-  width: 1200px;
-  height: 800px;
+  width: 611px;
+  height: 520px;
   object-fit: cover;
+`;
+
+export const PickToggle = styled.button`
+  width: 18%;
+  margin-right: 10px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: none;
+  background: white;
+`;
+export const PickContents = styled.div`
+  /* font-size: 20px; */
 `;
 
 export const Remark = styled.div`
@@ -39,6 +54,16 @@ export const Remark = styled.div`
 export const Name = styled.div`
   font-size: 40px;
   margin-bottom: 50px;
+`;
+
+export const EditBtn = styled.button`
+  width: 80px;
+  height: 30px;
+`;
+
+export const DeleteBtn = styled.button`
+  width: 80px;
+  height: 30px;
 `;
 
 export const Price = styled.div`

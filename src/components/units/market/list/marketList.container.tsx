@@ -9,8 +9,10 @@ import {
   IUseditem,
 } from "../../../../commons/types/generated/types";
 import { FETCH_USED_ITEMS } from "./marketList.queries";
+import { useAuth } from "../../../../commons/hooks/useAuth";
 
 export default function MarketList(): JSX.Element {
+  useAuth();
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 

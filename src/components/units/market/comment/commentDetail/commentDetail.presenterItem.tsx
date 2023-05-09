@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { IUseditemQuestion } from "../../../../../../src/commons/types/generated/types";
 import { FETCH_USER_LOGGED_IN } from "../commentWrite/commentWrite.queries";
 import MarketCommentWrite from "../commentWrite/commentWrite.container";
+import MarketCommentAnswer from "../commentWrite/commentAnswer.index";
 export interface IMarketCommentFinishUIItemProps {
   el: IUseditemQuestion;
 }
@@ -35,7 +36,7 @@ export default function MarketCommentDetailUIItem(
     setIsEdit(true);
   };
 
-  const onClickAnswer = (): void => {
+  const onClickAnswer = (commentId: string): void => {
     setIsAnswer(true);
   };
 
@@ -60,7 +61,6 @@ export default function MarketCommentDetailUIItem(
       if (error instanceof Error) alert("댓글 삭제에 실패했습니다.");
     }
   };
-  console.log(isAnswer);
   const renderCommentIcon = () => {
     const userId = data?.fetchUserLoggedIn?._id;
 
@@ -72,7 +72,13 @@ export default function MarketCommentDetailUIItem(
         </>
       );
     } else {
-      return <S.CommentIcon src="/commentAnswer.png" onClick={onClickAnswer} id={props.el._id} />;
+      return (
+        <S.CommentIcon
+          src="/commentAnswer.png"
+          onClick={() => onClickAnswer(props.el._id)}
+          id={props.el._id}
+        />
+      );
     }
   };
 
@@ -95,7 +101,7 @@ export default function MarketCommentDetailUIItem(
           <S.Line />
         </S.Wrapper>
       ) : isEdit ? (
-        <BoardCommentWrite isEdit={true} setIsEdit={setIsEdit} el={props.el} />
+        <MarketCommentWrite isEdit={true} setIsEdit={setIsEdit} el={props.el} />
       ) : isAnswer ? (
         <>
           <S.Wrapper>
@@ -119,7 +125,7 @@ export default function MarketCommentDetailUIItem(
             </S.Comment>
             <S.Line />
           </S.Wrapper>
-          <MarketCommentWrite isAnswer={true} setIsAnswer={setIsAnswer} el={props.el} />
+          <MarketCommentAnswer isAnswer={true} setIsAnswer={setIsAnswer} el={props.el} />
         </>
       ) : null}
     </>

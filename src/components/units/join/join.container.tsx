@@ -40,7 +40,6 @@ export default function Join(): JSX.Element {
           },
         },
       });
-      console.log(result);
       router.push("/");
     } catch (error) {
       if (error instanceof Error) alert(error.message);

@@ -4,7 +4,6 @@ import {
   IMutation,
   IMutationCreateUseditemQuestionArgs,
   IMutationUpdateUseditemQuestionArgs,
-  IUpdateUseditemQuestionInput,
   IUseditemQuestion,
 } from "../../../../../commons/types/generated/types";
 import { CREATE_USED_ITEM_QUESTION, UPDATE_USED_ITEM_QUESTION } from "./commentWrite.queries";
@@ -17,7 +16,7 @@ import MarketCommentWriteUI from "./commentWrite.presenter";
 export interface IUsedItemQuestionWriteProps {
   isEdit?: boolean;
   setIsEdit?: Dispatch<SetStateAction<boolean>>;
-  el?: IUseditemQuestion;
+  el: IUseditemQuestion;
 }
 
 export default function MarketCommentWrite(props: IUsedItemQuestionWriteProps): JSX.Element {
@@ -28,6 +27,7 @@ export default function MarketCommentWrite(props: IUsedItemQuestionWriteProps): 
     Pick<IMutation, "createUseditemQuestion">,
     IMutationCreateUseditemQuestionArgs
   >(CREATE_USED_ITEM_QUESTION);
+  console.log(contents);
 
   const [updateUseditemQuestion] = useMutation<
     Pick<IMutation, "updateUseditemQuestion">,
@@ -62,18 +62,16 @@ export default function MarketCommentWrite(props: IUsedItemQuestionWriteProps): 
     }
     setContents("");
   };
-  const onClickCommentUpdate = (useditemQuestionId: string) => async (event) => {
-    try {
-      const updateUseditemQuestionInput: IUpdateUseditemQuestionInput = {};
-      if (contents !== "") updateUseditemQuestionInput.contents = contents;
-      console.log(props.el);
 
+  const onClickCommentUpdate = async () => {
+    try {
       await updateUseditemQuestion({
         variables: {
-          updateUseditemQuestionInput,
+          updateUseditemQuestionInput: {
+            contents,
+          },
           useditemQuestionId: String(props.el?._id),
         },
-
         refetchQueries: [
           {
             query: FETCH_USED_ITEM_QUESTIONS,
@@ -81,7 +79,6 @@ export default function MarketCommentWrite(props: IUsedItemQuestionWriteProps): 
           },
         ],
       });
-
       props.setIsEdit?.(false);
     } catch (error) {
       if (error instanceof Error) alert(error.message);

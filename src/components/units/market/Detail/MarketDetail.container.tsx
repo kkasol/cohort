@@ -8,13 +8,20 @@ import {
 } from "../../../../commons/types/generated/types";
 import {
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
+  DELETE_USED_ITEM,
   FETCH_USED_ITEM,
+  TOGGLE_USED_ITEM_PICK,
 } from "./MarketDetail.queries";
 import { useState } from "react";
+import { useAuth } from "../../../../commons/hooks/useAuth";
 
 export default function MarketDetail(): JSX.Element {
+  useAuth();
   const router = useRouter();
   const [cartItems, setCartItems] = useState<IUseditem[]>([]);
+  const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
+  const [deleteUseditem] = useMutation(DELETE_USED_ITEM);
+
   const [createPointTransactionOfBuyingAndSelling] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
   );
@@ -39,6 +46,33 @@ export default function MarketDetail(): JSX.Element {
     }
   );
 
+  const onClickPick = async () => {
+    await toggleUseditemPick({
+      variables: {
+        useditemId: router.query.useditemId,
+      },
+      refetchQueries: [
+        {
+          query: FETCH_USED_ITEM,
+          variables: {
+            useditemId: `${router.query.useditemId}`,
+          },
+        },
+      ],
+    });
+  };
+
+  const onClickEdit = () => {
+    void router.push(`/market/${router.query.useditemId}/edit`);
+  };
+
+  const onClickDelete = () => {
+    const result = deleteUseditem({
+      variables: { useditemId: router.query.useditemId },
+    });
+    router.push("/market");
+  };
+
   const onClickBuy = async () => {
     const result = await createPointTransactionOfBuyingAndSelling({
       variables: {
@@ -49,5 +83,14 @@ export default function MarketDetail(): JSX.Element {
     alert("상품이 구매되었습니다!");
   };
 
-  return <MarketDetailUI data={data} onClickCart={onClickCart} onClickBuy={onClickBuy} />;
+  return (
+    <MarketDetailUI
+      data={data}
+      onClickEdit={onClickEdit}
+      onClickDelete={onClickDelete}
+      onClickPick={onClickPick}
+      onClickCart={onClickCart}
+      onClickBuy={onClickBuy}
+    />
+  );
 }

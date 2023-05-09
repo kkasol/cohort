@@ -23,6 +23,8 @@ interface IMarketWriteUIProps {
   useditemAddress: string;
   fileUrls: string[];
   onChangeFileUrls: any;
+  onClickUpdate: any;
+  isEdit: boolean;
 }
 
 export default function MarketWriteUI(props: IMarketWriteUIProps): JSX.Element {
@@ -34,7 +36,7 @@ export default function MarketWriteUI(props: IMarketWriteUIProps): JSX.Element {
         </S.AddressModal>
       )}
       <S.Wrapper>
-        <S.Title>상품 등록</S.Title>
+        <S.Title>상품 {props.isEdit ? "수정" : "등록"}</S.Title>
         <S.DivideLineBold />
         <S.Row>
           <S.Label>상품명</S.Label>
@@ -86,7 +88,15 @@ export default function MarketWriteUI(props: IMarketWriteUIProps): JSX.Element {
         <S.DivideLineBold />
         <S.BtnSection>
           <button type="button">취소</button>
-          <button onClick={props.handleSubmit(props.onSubmit)}>등록</button>
+          <button
+            onClick={
+              props.isEdit
+                ? props.handleSubmit(props.onClickUpdate)
+                : props.handleSubmit(props.onSubmit)
+            }
+          >
+            {props.isEdit ? "수정" : "등록"}
+          </button>
         </S.BtnSection>
       </S.Wrapper>
     </form>

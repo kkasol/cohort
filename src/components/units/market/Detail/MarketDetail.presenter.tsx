@@ -1,49 +1,54 @@
 import { IQuery } from "../../../../commons/types/generated/types";
 import * as S from "./MarketDetail.styles";
-import Slider from "react-slick";
 import { useRouter } from "next/router";
 import MarketCommentWrite from "../comment/commentWrite/commentWrite.container";
 import MarketCommentDetail from "../comment/commentDetail/commentDetail.container";
+import { AiFillHeart } from "react-icons/ai";
 
 interface IMarketDetailUIProps {
   data?: Pick<IQuery, "fetchUseditem">;
+  onClickEdit: any;
+  onClickDelete: any;
   onClickBuy: any;
   onClickCart: any;
+  onClickPick: any;
 }
 
 export default function MarketDetailUI(props: IMarketDetailUIProps): JSX.Element {
   const router = useRouter();
-  const settings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+
   return (
     <>
       <S.Wrapper>
         <S.ContentWrapper>
           <S.Row>
             <S.ImageWrapper>
-              <Slider {...settings}>
-                {props.data?.fetchUseditem.images
-                  ?.filter((el: string) => el)
-                  .map((el: string) => (
-                    <S.Images key={el} src={`https://storage.googleapis.com/${el}`} />
-                  ))}
-              </Slider>
+              <S.Images
+                src={`https://storage.googleapis.com/${props.data?.fetchUseditem.images[0]}`}
+              />
             </S.ImageWrapper>
             <S.Column>
               <S.Remark>{props.data?.fetchUseditem.remarks}</S.Remark>
-              <S.Name>{props.data?.fetchUseditem.name}</S.Name>
+              <S.Row>
+                <S.Name>{props.data?.fetchUseditem.name}</S.Name>
+                <S.EditBtn onClick={props.onClickEdit}>수정하기</S.EditBtn>
+                <S.DeleteBtn onClick={props.onClickDelete}>삭제하기</S.DeleteBtn>
+              </S.Row>
               <S.Price>
                 <S.Row>
                   <p style={{ marginRight: "50px" }}>판매가</p>
                   <p>{props.data?.fetchUseditem.price}원</p>
                 </S.Row>
-                <S.Pick>MY 찜들어감</S.Pick>
+                <S.PickToggle onClick={props.onClickPick}>
+                  My
+                  <AiFillHeart
+                    style={{
+                      color: props.data?.fetchUseditem.pickedCount === 0 ? "black" : "red",
+                      margin: "0px 8px",
+                    }}
+                  />
+                  Product
+                </S.PickToggle>
               </S.Price>
               <S.DivideLine />
               <S.Contents

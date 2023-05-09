@@ -4,10 +4,15 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@apollo/client";
-import { CREATE_USED_ITEM } from "./marketWrite.queries";
+import { CREATE_USED_ITEM, UPDATE_USED_ITEM } from "./marketWrite.queries";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { Address } from "react-daum-postcode";
+import { useAuth } from "../../../../commons/hooks/useAuth";
+
+interface IMarketWriteProps {
+  isEdit: boolean;
+}
 
 interface IFormData {
   name: string;
@@ -16,14 +21,18 @@ interface IFormData {
   price: string;
   tags: string;
   useditemAddress: string;
+
   // fileUrls: UseFieldArrayReturn;
 }
 
-export default function MarketWrite(): JSX.Element {
+export default function MarketWrite(props: IMarketWriteProps): JSX.Element {
+  useAuth();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [useditemAddress, setUseditemAddress] = useState("");
+  const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
+
   const [fileUrls, setFileUrls] = useState(["", ""]);
 
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
@@ -40,7 +49,7 @@ export default function MarketWrite(): JSX.Element {
       .matches(/^[0-9]*$/, "숫자만 입력 가능합니다."),
     tags: yup.string().required("태그를 입력해주세요."),
     // useditemAddress: yup
-    // images: yup.array().notRequired(),
+    images: yup.array().notRequired(),
   });
 
   const { register, handleSubmit, setValue, trigger } = useForm<IFormData>({
@@ -65,7 +74,6 @@ export default function MarketWrite(): JSX.Element {
     setUseditemAddress(data.address);
     setIsOpen((prev) => !prev);
   };
-  console.log(fileUrls);
   const onSubmit = async (data: IFormData) => {
     try {
       const result = await createUseditem({
@@ -87,6 +95,29 @@ export default function MarketWrite(): JSX.Element {
       if (error instanceof Error) alert(error.message);
     }
   };
+  const onClickUpdate = async (data: IFormData) => {
+    try {
+      const result = await updateUseditem({
+        variables: {
+          updateUseditemInput: {
+            name: data.name,
+            remarks: data.remarks,
+            contents: data.contents,
+            price: Number(data.price),
+            tags: data.tags,
+            images: [...fileUrls],
+          },
+          useditemId: router.query.useditemId,
+        },
+      });
+
+      Modal.success({ content: "상품 수정에 성공했습니다." });
+      router.push(`/market/${result.data?.updateUseditem._id}`);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   return (
     <MarketWriteUI
       isOpen={isOpen}
@@ -100,6 +131,8 @@ export default function MarketWrite(): JSX.Element {
       useditemAddress={useditemAddress}
       fileUrls={fileUrls}
       onChangeFileUrls={onChangeFileUrls}
+      onClickUpdate={onClickUpdate}
+      isEdit={props.isEdit}
     />
   );
 }

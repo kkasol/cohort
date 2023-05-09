@@ -34,6 +34,14 @@ const Wrapper = styled.div`
   > div {
     font-size: 24px;
   }
+  > button {
+    background-color: black;
+    color: white;
+    border: none;
+    width: 240px;
+    height: 38px;
+    margin-top: 40px;
+  }
 `;
 
 const Select = styled.select`
@@ -42,6 +50,7 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 400px;
+  margin-top: 70px;
 `;
 
 const Option = styled.option`
@@ -88,7 +97,6 @@ const ChargeModal = ({ isOpen, closeModal }) => {
       },
       (rsp: any) => {
         if (rsp.success === true) {
-          console.log("aa");
         } else {
         }
       }

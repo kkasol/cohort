@@ -38,11 +38,7 @@ export default function MarketListUI(props: MarketListUIProps): JSX.Element {
         <S.MarketList>
           <S.CreateBtn onClick={props.onClickCreate}>상품 등록</S.CreateBtn>
           <S.SearchInput>
-            <S.Search
-              type="text"
-              onChange={props.onChangeSearch}
-              placeholder="검색어를 입력해주세요"
-            />
+            <S.Search type="text" onChange={props.onChangeSearch} />
           </S.SearchInput>
           <InfiniteScroll
             pageStart={0}

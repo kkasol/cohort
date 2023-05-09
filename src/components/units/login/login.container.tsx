@@ -32,7 +32,6 @@ export default function Login(): JSX.Element {
           password,
         },
       });
-      console.log(result);
 
       const accessToken = result.data?.loginUser.accessToken;
 

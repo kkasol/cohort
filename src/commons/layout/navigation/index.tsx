@@ -26,20 +26,20 @@ export default function LayoutHeader(): JSX.Element {
   };
 
   const MENU_BAR = [
-    { name: "BRAND", page: "/boards" },
+    { name: "BRAND", page: "/market" },
     { name: "CATEGORY", page: "/market" },
-    { name: "LIFE", page: "/mypage" },
-    { name: "BEAUTY", page: "/boards" },
+    { name: "LIFE", page: "/market" },
+    { name: "BEAUTY", page: "/market" },
     { name: "#STYLE", page: "/market" },
-    { name: "EVENT", page: "/mypage" },
-    { name: "BEST", page: "/mypage" },
+    { name: "EVENT", page: "/market" },
+    { name: "BEST", page: "/market" },
   ];
 
   return (
     <Wrapper>
       {MENU_BAR.map((el) => (
-        <Fragment key={el.page}>
-          <MenuItem id={el.page} onClick={onClickMenu}>
+        <Fragment key={el.name}>
+          <MenuItem id={el.name} onClick={onClickMenu}>
             {el.name}
           </MenuItem>
         </Fragment>

@@ -49,7 +49,11 @@ export const CreateBtn = styled.button`
 
 export const SearchInput = styled.div``;
 
-export const Search = styled.input``;
+export const Search = styled.input`
+  width: 400px;
+  border: none;
+  border-bottom: 3px solid black;
+`;
 
 export const MarketBody = styled.div`
   width: 20%;
