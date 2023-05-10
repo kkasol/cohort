@@ -12,6 +12,7 @@ interface IMarketDetailUIProps {
   onClickBuy: any;
   onClickCart: any;
   onClickPick: any;
+  myData: any;
 }
 
 export default function MarketDetailUI(props: IMarketDetailUIProps): JSX.Element {
@@ -31,8 +32,12 @@ export default function MarketDetailUI(props: IMarketDetailUIProps): JSX.Element
               <S.Remark>{props.data?.fetchUseditem.remarks}</S.Remark>
               <S.Row>
                 <S.Name>{props.data?.fetchUseditem.name}</S.Name>
-                <S.EditBtn onClick={props.onClickEdit}>수정하기</S.EditBtn>
-                <S.DeleteBtn onClick={props.onClickDelete}>삭제하기</S.DeleteBtn>
+                {props.myData === props.data?.fetchUseditem?.seller?._id && (
+                  <>
+                    <S.EditBtn onClick={props.onClickEdit}>수정하기</S.EditBtn>
+                    <S.DeleteBtn onClick={props.onClickDelete}>삭제하기</S.DeleteBtn>
+                  </>
+                )}
               </S.Row>
               <S.Price>
                 <S.Row>

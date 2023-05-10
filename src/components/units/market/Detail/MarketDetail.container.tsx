@@ -14,6 +14,7 @@ import {
 } from "./MarketDetail.queries";
 import { useState } from "react";
 import { useAuth } from "../../../../commons/hooks/useAuth";
+import { FETCH_USER_LOGGED_IN } from "../comment/commentWrite/commentWrite.queries";
 
 export default function MarketDetail(): JSX.Element {
   useAuth();
@@ -36,7 +37,8 @@ export default function MarketDetail(): JSX.Element {
     localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     setCartItems(updatedCartItems);
   };
-
+  const result = useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+  const myData = result?.data?.fetchUserLoggedIn._id;
   const { data } = useQuery<Pick<IQuery, "fetchUseditem">, IQueryFetchUseditemArgs>(
     FETCH_USED_ITEM,
     {
@@ -91,6 +93,7 @@ export default function MarketDetail(): JSX.Element {
       onClickPick={onClickPick}
       onClickCart={onClickCart}
       onClickBuy={onClickBuy}
+      myData={myData}
     />
   );
 }
